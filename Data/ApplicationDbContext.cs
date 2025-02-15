@@ -1,3 +1,4 @@
+using BackendProject.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BackendProject.Data
@@ -9,5 +10,9 @@ namespace BackendProject.Data
         {
 
         }
+
+        // Tabla Users
+        public DbSet<User> Users { get; set; }
     }
 }
+
