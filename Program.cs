@@ -1,7 +1,6 @@
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using BackendProject.Data;
-using FIRSTBACK.Tematicas;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,10 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
  var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
  builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
 
-builder.Services.AddScoped<ITematicaService, TematicaRepository>();
-
+builder.Services.AddScoped<ITematicaService, TematicaService>();
 builder.Services.AddAutoMapper(typeof(TematicaProfile));
-
 builder.Services.AddControllers();
 builder.Services.AddAuthorization();
 
@@ -28,12 +25,6 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-}
-
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();

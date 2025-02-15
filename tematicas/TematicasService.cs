@@ -2,11 +2,11 @@ using BackendProject.Data;
 using FIRSTBACK.Tematicas;
 using Microsoft.EntityFrameworkCore;
 
-public class TematicaRepository : ITematicaService
+public class TematicaService : ITematicaService
 {
     private readonly ApplicationDbContext _context;
 
-    public TematicaRepository(ApplicationDbContext context)
+    public TematicaService(ApplicationDbContext context)
     {
         _context = context;
     }
