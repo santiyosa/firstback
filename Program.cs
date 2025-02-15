@@ -1,17 +1,22 @@
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using BackendProject.Data;
+using FIRSTBACK.Instituciones;
+using FIRSTBACK.Oportunidades;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+ options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
+ builder.Services.AddControllersWithViews();
 
+
+builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();
+builder.Services.AddScoped<IInstitucionService, InstitucionService>();
+builder.Services.AddScoped<IOportunidadService, OportunidadService>();
 builder.Services.AddAuthorization();
-
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
