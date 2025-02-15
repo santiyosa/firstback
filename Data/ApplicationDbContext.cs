@@ -1,13 +1,13 @@
+using FIRSTBACK.Instituciones;
 using Microsoft.EntityFrameworkCore;
 
-namespace BackendProject.Data
+namespace FIRSTBACK.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :
-       base(options)
-        {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        { }
+        public DbSet<Institucion> Instituciones { get; set; }
 
-        }
     }
 }
