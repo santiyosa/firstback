@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using firstback.categorias;
 
 namespace BackendProject.Data
 {
@@ -6,8 +7,8 @@ namespace BackendProject.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :
        base(options)
-        {
+        { }
+        public DbSet<Categorias> Categorias { get; set; }
 
-        }
     }
 }
