@@ -1,71 +1,41 @@
 using Users_Opportunities.Models;
 using Microsoft.AspNetCore.Mvc;
-using BackendProject.Data;
 using Microsoft.EntityFrameworkCore;
+using Users_Opportunities.Sevices;
+using Users_Opportunities.DTO;
+
 
 [ApiController]
 [Route("api/[controller]")]
 public class UsersOpportunitiesController : ControllerBase
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IUsers_OpportunitiesServices _userOpportunityService;
 
-    public UsersOpportunitiesController(ApplicationDbContext context)
+    public UsersOpportunitiesController(IUsers_OpportunitiesServices userOpportunityService)
     {
-        _context = context;
+        _userOpportunityService = userOpportunityService;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<UserOpportunityDTO>>> GetUsersOpportunities()
+    public async Task<ActionResult<IEnumerable<UsersOpportunityDTO>>> GetUsersOpportunities()
     {
-        var userOpportunities = await _context.UsersOpportunities
-            .Select(uo => new UserOpportunityDTO
-            {
-                UserId = uo.UserId,
-                OpportunityId = uo.OpportunityId
-            }).ToListAsync();
-
+        var userOpportunities = await _userOpportunityService.GetAllAsync();
+        
         return Ok(userOpportunities);
     }
 
     [HttpPost]
-    public async Task<ActionResult<UserOpportunityDTO>> CreateUserOpportunity(UserOpportunityDTO dto)
+    public async Task<ActionResult<UsersOpportunityDTO>> CreateUserOpportunity(UsersOpportunityDTO usersOpportunityDTO)
     {
-       
-
-        var userOpportunity = new UserOpportunity
-        {
-            UserId = dto.UserId,
-            OpportunityId = dto.OpportunityId
-        };
-
-        _context.UsersOpportunities.Add(userOpportunity);
-        await _context.SaveChangesAsync();
-
-        return CreatedAtAction(nameof(GetUsersOpportunities), new { userId = dto.UserId, opportunityId = dto.OpportunityId }, dto);
+        var userOpportunities = await _userOpportunityService.CreateAsync(usersOpportunityDTO);
+        return CreatedAtAction(nameof(GetUsersOpportunities), new { userId = usersOpportunityDTO.UserId, opportunityId = usersOpportunityDTO.OpportunityId }, usersOpportunityDTO);
     }
 
-    [HttpPut("{userId}/{opportunityId}")]
-    public async Task<IActionResult> UpdateUserOpportunity(int userId, int opportunityId, UserOpportunityDTO dto)
+    
+    [HttpDelete]
+    public async Task<IActionResult> DeleteUserOpportunity(UsersOpportunityDTO usersOpportunityDTO)
     {
-        
+       await _userOpportunityService.DeleteAsync(usersOpportunityDTO);
+       return NoContent();
     }
-
-    [HttpDelete("{userId}/{opportunityId}")]
-    public async Task<IActionResult> DeleteUserOpportunity(int userId, int opportunityId)
-    {
-       
-    }
-}
-
-internal class UserOpportunity
-{
-    public int UserId { get; set; }
-    public int OpportunityId { get; set; }
-}
-
-public class UserOpportunityDTO
-{
-    internal int OpportunityId;
-
-    public int UserId { get; internal set; }
 }

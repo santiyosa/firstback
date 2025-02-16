@@ -1,21 +1,13 @@
-using Microsoft.OpenApi.Models;
+using Users_Opportunities.DTO;
+using Users_Opportunities.Models;
 
-
-public void ConfigureServices(IServiceCollection services)
+namespace Users_Opportunities.Sevices
 {
-
-    services.AddSwaggerGen(c =>
+    public interface IUsers_OpportunitiesServices
     {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
-    });
-}
+        Task<IEnumerable<UserOpportunity>>GetAllAsync();
+        Task<UserOpportunity>CreateAsync(UsersOpportunityDTO usersOpportunityDTO);
+        Task DeleteAsync(UsersOpportunityDTO usersOpportunityDTO);
+    }
 
-public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-{
-
-    app.UseSwagger();
-    app.UseSwaggerUI(c => 
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
-    });
 }

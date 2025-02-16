@@ -1,5 +1,9 @@
-public class UsersOpportunityDTO
+namespace Users_Opportunities.DTO
 {
-    public int UserId { get; set; }
-    public int OpportunityId { get; set; }
+    public class UsersOpportunityDTO
+    {
+        public int UserId { get; set; }
+        public int OpportunityId { get; set; }
+    }
 }
+

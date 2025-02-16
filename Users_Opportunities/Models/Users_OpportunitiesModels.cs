@@ -1,22 +1,24 @@
-namespace Users_Opportunities.Models
-{
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using BackendProject.Models;
+using FIRSTBACK.Oportunidades;
+
 namespace Users_Opportunities.Models
 {
     public class UserOpportunity
     {
-        public int UserId { get; set; }
-        public int OpportunityId { get; set; }
+        [ForeignKey("id_usuario")]
+        public int? userId { get; set; }
 
-        public virtual User User { get; set; }
-        public virtual Opportunity Opportunity { get; set; }
-    }
+        [ForeignKey("id_usuario")]
+        public virtual User? User { get; set; } // Relación a la entidad
 
-        public class User
-        {
-        }
+        [ForeignKey("id_oportunidad")]
+        public int? opportunityId { get; set; }
 
-        public class Opportunity
-        {
-        }
+        [ForeignKey("id_oportunidad")]
+        public virtual Oportunidad? Oportunidad { get; set; } // Relación a la entidad
+
+
     }
 }
