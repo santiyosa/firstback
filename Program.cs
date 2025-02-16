@@ -1,6 +1,7 @@
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using BackendProject.Data;
+using FIRSTBACK.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql
 
 builder.Services.AddControllers();
 builder.Services.AddAuthorization();
+
+builder.Services.AddScoped<IInstitucionBootcampService, InstitucionBootcampService>();
 
 
 builder.Services.AddEndpointsApiExplorer();
