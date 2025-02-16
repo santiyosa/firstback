@@ -13,6 +13,7 @@ builder.Services.AddAuthorization();
 
 
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddScoped<IBootcampTematicaService, BootcampTematicaService>();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
@@ -28,6 +29,8 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    
+
 }
 
 app.UseSwagger();
