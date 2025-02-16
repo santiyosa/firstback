@@ -1,3 +1,4 @@
+using BackendProject.Models;
 using Microsoft.EntityFrameworkCore;
 using Users_Opportunities.Models;
 using Users_Opportunities.Models.Users_Opportunities.Models;
@@ -31,5 +32,9 @@ namespace BackendProject.Data
                 .HasForeignKey(uo => uo.OpportunityId)
                 .OnDelete(DeleteBehavior.Restrict); // Recomendado: Evita borrados en cascada
         }
+
+        // Tabla Users
+        public DbSet<User> Users { get; set; }
     }
 }
+
