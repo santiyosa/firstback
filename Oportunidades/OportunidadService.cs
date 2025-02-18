@@ -1,10 +1,11 @@
-
+*/
 using AutoMapper;
-using BackendProject.Data;
+using FIRSTBACK.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace FIRSTBACK.Oportunidades
-{
+
+/*{
     public class OportunidadService : IOportunidadService
     {
 
@@ -22,7 +23,8 @@ namespace FIRSTBACK.Oportunidades
                         .Include(o => o.Institucion) // Incluir la relación
                         .ToListAsync();
             /*  return await _context.Oportunidades.ToListAsync(); */
-        }
+      //* }
+      /*
 
         public async Task<Oportunidad?> GetByIdAsync(int id)
         {
@@ -66,4 +68,4 @@ namespace FIRSTBACK.Oportunidades
         }
     }
 
-}
+}/

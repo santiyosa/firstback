@@ -1,6 +1,8 @@
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using BackendProject.Data;
+using FIRSTBACK.Oportunidades;
+using FIRSTBACK.Instituciones;
+using FIRSTBACK.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
