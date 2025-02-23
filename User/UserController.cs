@@ -18,10 +18,10 @@ namespace firstback.user
 
         // GET: api/User
         [HttpGet]
-        public async Task<ActionResult<User>> GetUsers()
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             var users = await _userService.GetUsersAsync();
-            return Ok(_mapper.Map<IEnumerable<UserDTO>>(users));
+            return Ok(_mapper.Map<IEnumerable<User>>(users));
         }
 
         // GET: api/User/5

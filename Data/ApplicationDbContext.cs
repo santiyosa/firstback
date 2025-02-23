@@ -1,8 +1,9 @@
 using FIRSTBACK.Tematicas;
 using Microsoft.EntityFrameworkCore;
 using firstback.categorias;
+using firstback.user;
 
-namespace firstback.user
+namespace BackendProject.Data
 {
     public class ApplicationDbContext : DbContext
     {

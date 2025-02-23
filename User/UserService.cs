@@ -1,3 +1,4 @@
+using BackendProject.Data;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 
@@ -35,9 +36,10 @@ namespace firstback.user
         public async Task UpdateUserAsync(int id, UserDTO userDTO)
         {
             var user = await _context.Users.FindAsync(id);
-            if (user == null)
+
+            if (user != null)
             {
-               _mapper.Map(userDTO, user);
+                _mapper.Map(userDTO, user);
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
             }
@@ -46,13 +48,11 @@ namespace firstback.user
         public async Task DeleteUserAsync(int id)
         {
             var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            if (user != null)
             {
-                throw new KeyNotFoundException("User not found");
+                _context.Users.Remove(user);
+                await _context.SaveChangesAsync();
             }
-
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
         }
     }
 }
