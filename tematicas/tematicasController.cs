@@ -1,7 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace FIRSTBACK.Tematicas
 {
     [Route("api/[controller]")]
@@ -18,30 +17,47 @@ namespace FIRSTBACK.Tematicas
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TematicaDTO>>> GetAll()
+        public async Task<ActionResult<IEnumerable<Tematica>>> GetAll()
         {
             var tematicas = await _tematicaService.GetAllAsync();
-            return Ok(_mapper.Map<IEnumerable<TematicaDTO>>(tematicas));
+            return Ok(_mapper.Map<IEnumerable<Tematica>>(tematicas));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TematicaDTO>> Get(int id)
+        public async Task<ActionResult<Tematica>> Get(int id)
         {
             var tematica = await _tematicaService.GetByIdAsync(id);
             if (tematica == null)
                 return NotFound();
-            return Ok(_mapper.Map<TematicaDTO>(tematica));
+            return Ok(_mapper.Map<Tematica>(tematica));
         }
 
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] TematicaDTO tematicaDto)
         {
-            if (tematicaDto == null)
-                return BadRequest("El objeto Tematica no puede ser null.");
+            int id = await _tematicaService.CreateAsync(tematicaDto);
+            return CreatedAtAction(nameof(Get), new { id }, tematicaDto);
+        }
 
-            var tematica = _mapper.Map<Tematica>(tematicaDto);
-            await _tematicaService.CreateAsync(tematica);
-            return CreatedAtAction(nameof(Get), new { id = tematica.Id }, tematica);
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(int id, [FromBody] TematicaDTO tematicaDto)
+        {
+            var existingTematica = await _tematicaService.GetByIdAsync(id);
+            if (existingTematica == null)
+                return NotFound();
+            _mapper.Map(tematicaDto, existingTematica);
+            await _tematicaService.UpdateAsync(id, tematicaDto);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var tematica = await _tematicaService.GetByIdAsync(id);
+            if (tematica == null)
+                return NotFound();
+            await _tematicaService.DeleteAsync(id);
+            return NoContent();
         }
     }
 

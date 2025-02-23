@@ -1,3 +1,4 @@
+using AutoMapper;
 using BackendProject.Data;
 using FIRSTBACK.Tematicas;
 using Microsoft.EntityFrameworkCore;
@@ -5,10 +6,12 @@ using Microsoft.EntityFrameworkCore;
 public class TematicaService : ITematicaService
 {
     private readonly ApplicationDbContext _context;
+    private readonly IMapper _mapper;
 
-    public TematicaService(ApplicationDbContext context)
+    public TematicaService(ApplicationDbContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
     public async Task<IEnumerable<Tematica>> GetAllAsync()
@@ -21,19 +24,23 @@ public class TematicaService : ITematicaService
         return await _context.Tematicas.FindAsync(id);
     }
 
-    public async Task CreateAsync(Tematica tematica)
+    public async Task<int> CreateAsync(TematicaDTO tematicaDTO)
     {
+        Tematica tematica = _mapper.Map<Tematica>(tematicaDTO);
         _context.Tematicas.Add(tematica);
         await _context.SaveChangesAsync();
+
+        return tematica.Id;
     }
 
-    public async Task UpdateAsync(int id, Tematica tematica)
+    public async Task UpdateAsync(int id, TematicaDTO tematicaDTO)
     {
         var existingTematica = await _context.Tematicas.FindAsync(id);
+
         if (existingTematica != null)
         {
-            existingTematica.Nombre = tematica.Nombre;
-            existingTematica.Descripcion = tematica.Descripcion;
+            _mapper.Map(tematicaDTO, existingTematica);
+            _context.Tematicas.Update(existingTematica);
             await _context.SaveChangesAsync();
         }
     }
