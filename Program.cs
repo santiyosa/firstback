@@ -1,6 +1,6 @@
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using FIRSTBACK.Data;
+// using FIRSTBACK.Data;
 using FIRSTBACK.Instituciones;
 using BackendProject.Data;
 using firstback.categorias;

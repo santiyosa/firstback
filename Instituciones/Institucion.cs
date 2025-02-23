@@ -8,7 +8,7 @@ namespace FIRSTBACK.Instituciones
         public int id { get; set; }
 
         [StringLength(255)]
-        public string nombre { get; set; } = null!;
+        public string? nombre { get; set; }
 
         public string? ubicacion { get; set; }
 
@@ -21,5 +21,4 @@ namespace FIRSTBACK.Instituciones
         public string? url_admision { get; set; }
 
     }
-
 }

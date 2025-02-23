@@ -18,12 +18,10 @@ namespace FIRSTBACK.Instituciones
 
         // GET: api/Institucion
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<InstitucionDTO>>> GetAll()
+        public async Task<ActionResult<IEnumerable<Institucion>>> GetAll()
         {
-            /* return Ok(await _institucionService.GetAllAsync()); */
-
             var Instituciones = await _institucionService.GetAllAsync();
-            return Ok(_mapper.Map<IEnumerable<InstitucionDTO>>(Instituciones));
+            return Ok(_mapper.Map<IEnumerable<Institucion>>(Instituciones));
         }
 
         [HttpGet("{id}")]
@@ -37,22 +35,27 @@ namespace FIRSTBACK.Instituciones
 
         // POST: api/
         [HttpPost]
-        public async Task<ActionResult> Create([FromBody] Institucion institucion)
+        public async Task<ActionResult> Create([FromBody] InstitucionDTO institucionDTO)
         {
-            await _institucionService.CreateAsync(institucion);
-            return CreatedAtAction(nameof(Get), new { id = institucion.id }, institucion);
+            int id = await _institucionService.CreateAsync(institucionDTO);
+            return CreatedAtAction(nameof(Get), new { id }, institucionDTO);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, [FromBody] Institucion institucion)
+        public async Task<ActionResult> Update(int id, [FromBody] InstitucionDTO institucionDTO)
         {
             var existinginstitucion = await _institucionService.GetByIdAsync(id);
             if (existinginstitucion == null)
+            {
                 return NotFound();
-            institucion.id = id;
-            await _institucionService.UpdateAsync(id, institucion);
+            }
+            
+            _mapper.Map(institucionDTO, existinginstitucion);
+
+            await _institucionService.UpdateAsync(id, institucionDTO);
             return NoContent();
         }
+        
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {

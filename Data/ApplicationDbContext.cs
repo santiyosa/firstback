@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using firstback.categorias;
 using firstback.user;
 
-namespace FIRSTBACK.Data
+namespace BackendProject.Data
 {
     public class ApplicationDbContext : DbContext
     {

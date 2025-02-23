@@ -5,10 +5,8 @@ namespace FIRSTBACK.Instituciones
     {
         Task<IEnumerable<Institucion>> GetAllAsync();
         Task<Institucion?> GetByIdAsync(int id);
-        Task CreateAsync(Institucion institucion);
-        Task UpdateAsync(int id, Institucion institucion);
+        Task<int> CreateAsync(InstitucionDTO institucion);
+        Task UpdateAsync(int id, InstitucionDTO institucion);
         Task DeleteAsync(int id);
-
     }
-    
 }

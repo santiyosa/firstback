@@ -1,15 +1,18 @@
-using FIRSTBACK.Data;
+using BackendProject.Data;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace FIRSTBACK.Instituciones
 {
     public class InstitucionService : IInstitucionService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public InstitucionService(ApplicationDbContext context)
+        public InstitucionService(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<Institucion>> GetAllAsync()
@@ -22,24 +25,22 @@ namespace FIRSTBACK.Instituciones
             return await _context.Instituciones.FindAsync(id);
         }
 
-        public async Task CreateAsync(Institucion institucion)
+        public async Task<int> CreateAsync(InstitucionDTO institucionDTO)
         {
+            Institucion institucion = _mapper.Map<Institucion>(institucionDTO);
             _context.Instituciones.Add(institucion);
             await _context.SaveChangesAsync();
+
+            return institucion.id;
         }
 
-        public async Task UpdateAsync(int id, Institucion institucion)
+        public async Task UpdateAsync(int id, InstitucionDTO institucionDTO)
         {
             var existingInstitucion = await _context.Instituciones.FindAsync(id);
             if (existingInstitucion != null)
             {
-                existingInstitucion.nombre = institucion.nombre;
-                existingInstitucion.ubicacion = institucion.ubicacion;
-                existingInstitucion.url_generalidades = institucion.url_generalidades;
-                existingInstitucion.url_oferta_academica = institucion.url_oferta_academica;
-                existingInstitucion.url_bienestar = institucion.url_bienestar;
-                existingInstitucion.url_admision = institucion.url_admision;
- 
+                _mapper.Map(institucionDTO, existingInstitucion);
+                _context.Instituciones.Update(existingInstitucion);
                 await _context.SaveChangesAsync();
             }
         }
@@ -53,6 +54,5 @@ namespace FIRSTBACK.Instituciones
                 await _context.SaveChangesAsync();
             }
         }
-
     }
 }
