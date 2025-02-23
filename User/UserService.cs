@@ -1,18 +1,17 @@
-using BackendProject.Data;
-using BackendProject.DTOs;
-using BackendProject.Models;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
-
-namespace BackendProject.Services
+namespace firstback.user
 {
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public UserService(ApplicationDbContext context)
+        public UserService(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<User>> GetUsersAsync()
@@ -20,27 +19,17 @@ namespace BackendProject.Services
             return await _context.Users.ToListAsync();
         }
 
-        public async Task<User> GetUserByIdAsync(int id)
+        public async Task<User?> GetUserByIdAsync(int id)
         {
             return await _context.Users.FindAsync(id);
         }
 
-        public async Task<User> CreateUserAsync(UserDTO userDTO)
+        public async Task<int> CreateUserAsync(UserDTO userDTO)
         {
-            var user = new User
-            {
-                FirstName = userDTO.FirstName,
-                LastName = userDTO.LastName,
-                BirthDate = userDTO.BirthDate,
-                Email = userDTO.Email,
-                Password = userDTO.Password,
-                Role = userDTO.Role
-            };
-
+            User user = _mapper.Map<User>(userDTO);
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-
-            return user;
+            return user.Id;
         }
 
         public async Task UpdateUserAsync(int id, UserDTO userDTO)
@@ -48,17 +37,10 @@ namespace BackendProject.Services
             var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
-                throw new KeyNotFoundException("User not found");
+               _mapper.Map(userDTO, user);
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
             }
-
-            user.FirstName = userDTO.FirstName;
-            user.LastName = userDTO.LastName;
-            user.BirthDate = userDTO.BirthDate;
-            user.Password = userDTO.Password;
-            user.Role = userDTO.Role;
-
-            _context.Entry(user).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteUserAsync(int id)

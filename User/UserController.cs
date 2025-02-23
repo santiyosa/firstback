@@ -1,27 +1,27 @@
-using Microsoft.AspNetCore.Mvc;
-using BackendProject.DTOs;
-using BackendProject.Services; 
-using BackendProject.Models;     
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;    
 
-namespace BackendProject.Controllers
+namespace firstback.user
 {
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+         private readonly IMapper _mapper;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         // GET: api/User
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<User>> GetUsers()
         {
             var users = await _userService.GetUsersAsync();
-            return Ok(users);
+            return Ok(_mapper.Map<IEnumerable<UserDTO>>(users));
         }
 
         // GET: api/User/5
@@ -39,16 +39,23 @@ namespace BackendProject.Controllers
 
         // POST: api/User
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(UserDTO userDTO)
+        public async Task<ActionResult> PostUser([FromBody] UserDTO userDTO)
         {
-            var user = await _userService.CreateUserAsync(userDTO);
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            int id = await _userService.CreateUserAsync(userDTO);
+            return CreatedAtAction(nameof(GetUser), new { id = id }, userDTO);
         }
 
         // PUT: api/User/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, UserDTO userDTO)
+        public async Task<IActionResult> PutUser(int id,[FromBody] UserDTO userDTO)
         {
+            var existingUser = await _userService.GetUserByIdAsync(id);
+            if (existingUser == null)
+            {
+                return NotFound();
+            }
+
+            _mapper.Map(userDTO, existingUser);
             await _userService.UpdateUserAsync(id, userDTO);
             return NoContent();
         }
@@ -57,6 +64,11 @@ namespace BackendProject.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
+            var user = await _userService.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
             await _userService.DeleteUserAsync(id);
             return NoContent();
         }
