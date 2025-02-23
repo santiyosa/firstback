@@ -55,7 +55,7 @@ namespace FIRSTBACK.Instituciones
             await _institucionService.UpdateAsync(id, institucionDTO);
             return NoContent();
         }
-        
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
@@ -65,6 +65,5 @@ namespace FIRSTBACK.Instituciones
             await _institucionService.DeleteAsync(id);
             return NoContent();
         }
-
     }
 }

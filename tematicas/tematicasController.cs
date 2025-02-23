@@ -60,5 +60,4 @@ namespace FIRSTBACK.Tematicas
             return NoContent();
         }
     }
-
 }

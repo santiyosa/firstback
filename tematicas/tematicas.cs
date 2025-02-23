@@ -12,5 +12,4 @@ namespace FIRSTBACK.Tematicas
 
         public string? Descripcion { get; set; }
     }
-
 }

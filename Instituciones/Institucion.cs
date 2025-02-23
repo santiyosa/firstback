@@ -19,6 +19,5 @@ namespace FIRSTBACK.Instituciones
         public string? url_bienestar { get; set; }
 
         public string? url_admision { get; set; }
-
     }
 }
