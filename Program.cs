@@ -2,6 +2,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using BackendProject.Data;
 using firstback.categorias;
+using firstback.user;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 // Configurar DbContext con PostgreSQL
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
+builder.Services.AddScoped<IUserService, UserService>(); //Servicio User
 
 // Registrar servicios
 builder.Services.AddScoped<ITematicaService, TematicaService>();
