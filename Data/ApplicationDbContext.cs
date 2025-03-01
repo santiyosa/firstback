@@ -1,6 +1,7 @@
 using FIRSTBACK.Instituciones;
 using FIRSTBACK.Tematicas;
 using Microsoft.EntityFrameworkCore;
+using firstback.roles;
 using firstback.categorias;
 using firstback.user;
 
@@ -8,6 +9,10 @@ namespace BackendProject.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        { }
+
+        public DbSet<Roles> Roles { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<Tematica> Tematicas { get; set; }
         public DbSet<Categorias> Categorias { get; set; }

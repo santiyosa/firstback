@@ -1,8 +1,8 @@
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-// using FIRSTBACK.Data;
 using FIRSTBACK.Instituciones;
 using BackendProject.Data;
+using firstback.roles;
 using firstback.categorias;
 using firstback.user;
 
@@ -13,9 +13,10 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 // Configurar DbContext con PostgreSQL
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
-builder.Services.AddScoped<IUserService, UserService>(); //Servicio User
 
 // Registrar servicios
+builder.Services.AddScoped<IUserService, UserService>(); 
+builder.Services.AddScoped<IRolesService, RolesService>(); 
 builder.Services.AddScoped<ITematicaService, TematicaService>();
 builder.Services.AddScoped<ICategoriasService, CategoriasService>();
 builder.Services.AddScoped<IInstitucionService, InstitucionService>();
