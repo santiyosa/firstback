@@ -15,14 +15,16 @@ namespace firstback.user
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<User>> GetUsersAsync()
+        public async Task<IEnumerable<UserRoleDTO>> GetUsersAsync()
         {
-            return await _context.Users.ToListAsync();
+            var users = await _context.Users.Include(u => u.Role).ToListAsync();
+
+            return _mapper.Map<IEnumerable<UserRoleDTO>>(users);
         }
 
         public async Task<User?> GetUserByIdAsync(int id)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Id == id); ;
         }
 
         public async Task<int> CreateUserAsync(UserDTO userDTO)

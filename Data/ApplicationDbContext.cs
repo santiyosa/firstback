@@ -17,5 +17,12 @@ namespace BackendProject.Data
         public DbSet<Categorias> Categorias { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Institucion> Instituciones { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Role) 
+                .WithMany(r => r.Users); 
+        }
     }
 }
