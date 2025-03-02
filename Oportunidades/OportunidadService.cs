@@ -1,6 +1,7 @@
 
 using AutoMapper;
 using BackendProject.Data;
+using firstback.Oportunidades;
 using Microsoft.EntityFrameworkCore;
 
 namespace FIRSTBACK.Oportunidades
@@ -16,17 +17,18 @@ namespace FIRSTBACK.Oportunidades
             _context = context;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<Oportunidad>> GetAllAsync()
+        public async Task<IEnumerable<OportunidadesInstitucionesDTO>> GetAllAsync()
         {
-            return await _context.Oportunidades
-                        .Include(o => o.Institucion) // Incluir la relación
-                        .ToListAsync();
-            /*  return await _context.Oportunidades.ToListAsync(); */
+            var oportunidades = await _context.Oportunidades.Include(b => b.Institucion).ToListAsync();
+            return _mapper.Map<IEnumerable<OportunidadesInstitucionesDTO>>(oportunidades);
         }
 
-        public async Task<Oportunidad?> GetByIdAsync(int id)
+        public async Task<OportunidadesInstitucionesDTO?> GetByIdAsync(int id)
         {
-            return await _context.Oportunidades.FindAsync(id);
+             var oportunidad = await _context.Oportunidades.Include(b => b.Institucion).FirstOrDefaultAsync(u => u.id == id); 
+
+            return _mapper.Map<OportunidadesInstitucionesDTO>(oportunidad);
+
         }
         public async Task CreateAsync(Oportunidad oportunidad)
         {

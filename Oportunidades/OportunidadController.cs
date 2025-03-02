@@ -1,4 +1,5 @@
 using AutoMapper;
+using firstback.Oportunidades;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FIRSTBACK.Oportunidades
@@ -18,16 +19,16 @@ namespace FIRSTBACK.Oportunidades
 
         // GET: api/Oportunidad
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OportunidadDTO>>> GetAll()
+        public async Task<ActionResult<IEnumerable<OportunidadesInstitucionesDTO>>> GetAll()
         {
             /* return Ok(await _oportunidadService.GetAllAsync()); */
                 var oportunidades = await _oportunidadService.GetAllAsync();
-    return Ok(_mapper.Map<IEnumerable<OportunidadDTO>>(oportunidades));
+    return Ok(oportunidades);
         }
 
         // GET: api/Oportunidad/id
         [HttpGet("{id}")]
-        public async Task<ActionResult<Oportunidad>> Get(int id)
+        public async Task<ActionResult<OportunidadesInstitucionesDTO>> Get(int id)
         {
             var product = await _oportunidadService.GetByIdAsync(id);
             if (product == null)
