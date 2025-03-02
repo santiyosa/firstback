@@ -5,6 +5,7 @@ using firstback.roles;
 using firstback.categorias;
 using firstback.user;
 using firstback.bootcamps;
+using FIRSTBACK.BootcampsTematicas;
 
 namespace BackendProject.Data
 {
@@ -18,17 +19,21 @@ namespace BackendProject.Data
         public DbSet<Categorias> Categorias { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Institucion> Instituciones { get; set; }
-        public DbSet<Bootcamp> Bootcamps { get; set; }  
+        public DbSet<Bootcamp> Bootcamps { get; set; }
+        public DbSet<BootcampTematica> BootcampTematicas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
-                .HasOne(u => u.Role) 
+                .HasOne(u => u.Role)
                 .WithMany(r => r.Users);
 
             modelBuilder.Entity<Bootcamp>()
                 .HasOne(b => b.Institucion)
                 .WithMany(t => t.bootcamps);
+
+            modelBuilder.Entity<BootcampTematica>()
+            .HasKey(bt => new { bt.IdBootcamp, bt.IdTematica });
         }
     }
 }
