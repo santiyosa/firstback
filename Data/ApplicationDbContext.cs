@@ -12,7 +12,6 @@ namespace BackendProject.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
-
         public DbSet<Roles> Roles { get; set; }
         public DbSet<Tematica> Tematicas { get; set; }
         public DbSet<Categorias> Categorias { get; set; }

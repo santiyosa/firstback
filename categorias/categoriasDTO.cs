@@ -7,7 +7,6 @@ namespace firstback.categorias
         [Required]
         public string? nombre { get; set; }
         [Required]
-
         public string? descripcion { get; set; }
     }
 }
