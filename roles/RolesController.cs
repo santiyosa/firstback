@@ -20,7 +20,7 @@ namespace firstback.roles
         public async Task<ActionResult<IEnumerable<Roles>>> GetAllAsync()
         {
             var roles = await _rolesService.GetAllAsync();
-            return Ok(_mapper.Map<IEnumerable<Roles>>(roles));
+            return Ok(roles);
         }
 
         [HttpGet("{id}")]

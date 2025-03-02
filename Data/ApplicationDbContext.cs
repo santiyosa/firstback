@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using firstback.roles;
 using firstback.categorias;
 using firstback.user;
+using firstback.bootcamps;
 
 namespace BackendProject.Data
 {
@@ -17,12 +18,17 @@ namespace BackendProject.Data
         public DbSet<Categorias> Categorias { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Institucion> Instituciones { get; set; }
+        public DbSet<Bootcamp> Bootcamps { get; set; }  
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Role) 
-                .WithMany(r => r.Users); 
+                .WithMany(r => r.Users);
+
+            modelBuilder.Entity<Bootcamp>()
+                .HasOne(b => b.Institucion)
+                .WithMany(t => t.bootcamps);
         }
     }
 }

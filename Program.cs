@@ -5,6 +5,7 @@ using BackendProject.Data;
 using firstback.roles;
 using firstback.categorias;
 using firstback.user;
+using firstback.bootcamps;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ builder.Services.AddScoped<IRolesService, RolesService>();
 builder.Services.AddScoped<ITematicaService, TematicaService>();
 builder.Services.AddScoped<ICategoriasService, CategoriasService>();
 builder.Services.AddScoped<IInstitucionService, InstitucionService>();
+builder.Services.AddScoped<IBootcampService, BootcampService>();
 
 // Configurar AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));

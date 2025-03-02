@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+using firstback.bootcamps;
 
 namespace FIRSTBACK.Instituciones
 {
@@ -6,8 +8,6 @@ namespace FIRSTBACK.Instituciones
     {
         [Key]
         public int id { get; set; }
-
-        [StringLength(255)]
         public string? nombre { get; set; }
 
         public string? ubicacion { get; set; }
@@ -19,5 +19,8 @@ namespace FIRSTBACK.Instituciones
         public string? url_bienestar { get; set; }
 
         public string? url_admision { get; set; }
+
+        [JsonIgnore]
+        public ICollection<Bootcamp>? bootcamps { get; set; }
     }
 }
