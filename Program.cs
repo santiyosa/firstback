@@ -6,6 +6,7 @@ using firstback.roles;
 using firstback.categorias;
 using firstback.user;
 using firstback.bootcamps;
+using FIRSTBACK.BootcampsTematicas;
 
 var builder = WebApplication.CreateBuilder(args);
 

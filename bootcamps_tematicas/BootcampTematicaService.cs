@@ -1,64 +1,58 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using BackendProject.Data;
-using FIRSTBACK.BootcampsTematicas;
 
 namespace FIRSTBACK.BootcampsTematicas
 {
     public class BootcampTematicaService : IBootcampTematicaService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public BootcampTematicaService(ApplicationDbContext context)
+        public BootcampTematicaService(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<BootcampTematica>> GetAllAsync()
+        public async Task<IEnumerable<BootcampTematicaGetDto>> GetAllAsync()
         {
-            return await _context.BootcampTematicas
+            var entities = await _context.BootcampTematicas
                 .Include(bt => bt.Bootcamp)
                 .Include(bt => bt.Tematica)
                 .ToListAsync();
+
+            return _mapper.Map<IEnumerable<BootcampTematicaGetDto>>(entities);
         }
 
-        public async Task<BootcampTematica?> GetByIdAsync(int idBootcamp, int idTematica)
+        public async Task<BootcampTematicaGetDto?> GetByIdAsync(int idBootcamp, int idTematica)
         {
-            return await _context.BootcampTematicas
+            var entity = await _context.BootcampTematicas
                 .Include(bt => bt.Bootcamp)
                 .Include(bt => bt.Tematica)
                 .FirstOrDefaultAsync(bt => bt.IdBootcamp == idBootcamp && bt.IdTematica == idTematica);
+
+            return entity == null ? null : _mapper.Map<BootcampTematicaGetDto>(entity);
         }
 
-        public async Task<BootcampTematica> CreateAsync(BootcampTematicaDto bootcampTematicaDto)
+        public async Task<BootcampTematicaGetDto> CreateAsync(BootcampTematicaDto bootcampTematicaDto)
         {
-            var bootcampTematica = BootcampTematicaMapper.MapToEntity(bootcampTematicaDto);
+            var entity = _mapper.Map<BootcampTematica>(bootcampTematicaDto);
 
-            _context.BootcampTematicas.Add(bootcampTematica);
+            _context.BootcampTematicas.Add(entity);
             await _context.SaveChangesAsync();
 
-            return await GetByIdAsync(bootcampTematica.IdBootcamp, bootcampTematica.IdTematica) ?? bootcampTematica;
-        }
-
-        public async Task<bool> UpdateAsync(int idBootcamp, int idTematica, BootcampTematicaDto bootcampTematicaDto)
-        {
-            var bootcampTematica = await GetByIdAsync(idBootcamp, idTematica);
-            if (bootcampTematica == null) return false;
-
-            bootcampTematica.IdBootcamp = bootcampTematicaDto.IdBootcamp;
-            bootcampTematica.IdTematica = bootcampTematicaDto.IdTematica;
-
-            _context.Entry(bootcampTematica).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-
-            return true;
+            return await GetByIdAsync(entity.IdBootcamp, entity.IdTematica) ?? _mapper.Map<BootcampTematicaGetDto>(entity);
         }
 
         public async Task<bool> DeleteAsync(int idBootcamp, int idTematica)
         {
-            var bootcampTematica = await GetByIdAsync(idBootcamp, idTematica);
-            if (bootcampTematica == null) return false;
+            var entity = await _context.BootcampTematicas
+                .FirstOrDefaultAsync(bt => bt.IdBootcamp == idBootcamp && bt.IdTematica == idTematica);
 
-            _context.BootcampTematicas.Remove(bootcampTematica);
+            if (entity == null) return false;
+
+            _context.BootcampTematicas.Remove(entity);
             await _context.SaveChangesAsync();
 
             return true;
