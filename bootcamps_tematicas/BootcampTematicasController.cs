@@ -13,7 +13,6 @@ namespace FIRSTBACK.BootcampsTematicas
             _service = service;
         }
 
-        // GET: api/BootcampTematicas
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BootcampTematicaGetDto>>> GetAll()
         {
@@ -21,7 +20,6 @@ namespace FIRSTBACK.BootcampsTematicas
             return Ok(bootcampTematicas);
         }
 
-        // GET: api/BootcampTematicas/{idBootcamp}/{idTematica}
         [HttpGet("{idBootcamp}/{idTematica}")]
         public async Task<ActionResult<BootcampTematicaGetDto>> GetById(int idBootcamp, int idTematica)
         {
@@ -30,7 +28,6 @@ namespace FIRSTBACK.BootcampsTematicas
             return Ok(bootcampTematica);
         }
 
-        // POST: api/BootcampTematicas
         [HttpPost]
         public async Task<ActionResult<BootcampTematicaGetDto>> Create([FromBody] BootcampTematicaDto bootcampTematicaDto)
         {
@@ -38,7 +35,6 @@ namespace FIRSTBACK.BootcampsTematicas
             return CreatedAtAction(nameof(GetById), new { idBootcamp = bootcampTematica.IdBootcamp, idTematica = bootcampTematica.IdTematica }, bootcampTematica);
         }
 
-        // DELETE: api/BootcampTematicas/{idBootcamp}/{idTematica}
         [HttpDelete("{idBootcamp}/{idTematica}")]
         public async Task<IActionResult> Delete(int idBootcamp, int idTematica)
         {
