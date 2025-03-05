@@ -7,6 +7,7 @@ using firstback.categorias;
 using firstback.user;
 using firstback.bootcamps;
 using FIRSTBACK.BootcampsTematicas;
+using FIRSTBACK.Oportunidades;
 using FIRSTBACK.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +27,7 @@ builder.Services.AddScoped<IInstitucionService, InstitucionService>();
 builder.Services.AddScoped<IBootcampService, BootcampService>();
 builder.Services.AddScoped<IInstitucionBootcampService, InstitucionBootcampService>();
 builder.Services.AddScoped<IBootcampTematicaService, BootcampTematicaService>();
+builder.Services.AddScoped<IOportunidadService, OportunidadService>();
 
 // Configurar AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
