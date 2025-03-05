@@ -6,9 +6,7 @@ namespace FIRSTBACK.Instituciones
     {
         public InstitucionProfile()
         {
-            // De DTO a Entidad
             CreateMap<InstitucionDTO, Institucion>();
-            // De Entidad a DTO
             CreateMap<Institucion, InstitucionDTO>();
         }
     }

@@ -18,8 +18,6 @@ namespace FIRSTBACK.Oportunidades
         public int? id_institucion { get; set; }
 
         [ForeignKey("id_institucion")]
-        public virtual Institucion? Institucion { get; set; } // Relación a la entidad 
-
+        public virtual Institucion? Institucion { get; set; }
     }
-
 }

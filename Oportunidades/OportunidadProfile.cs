@@ -7,9 +7,7 @@ namespace FIRSTBACK.Oportunidades
     {
         public OportunidadProfile()
         {
-            // De DTO a Entidad
             CreateMap<OportunidadDTO, Oportunidad>();
-            // De Entidad a DTO
             CreateMap<Oportunidad, OportunidadDTO>();
 
             CreateMap<Oportunidad, OportunidadesInstitucionesDTO>()

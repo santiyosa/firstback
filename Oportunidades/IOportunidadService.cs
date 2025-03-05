@@ -10,5 +10,4 @@ namespace FIRSTBACK.Oportunidades
         Task UpdateAsync(int id, Oportunidad oportunidad);
         Task DeleteAsync(int id);
     }
-
 }

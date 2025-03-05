@@ -1,5 +1,5 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc;    
+using Microsoft.AspNetCore.Mvc;
 
 namespace firstback.user
 {
@@ -8,7 +8,7 @@ namespace firstback.user
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-         private readonly IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public UserController(IUserService userService, IMapper mapper)
         {
@@ -16,7 +16,6 @@ namespace firstback.user
             _mapper = mapper;
         }
 
-        // GET: api/User
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserRoleDTO>>> GetUsers()
         {
@@ -24,7 +23,6 @@ namespace firstback.user
             return Ok(users);
         }
 
-        // GET: api/User/5
         [HttpGet("{id}")]
         public async Task<ActionResult<UserRoleDTO>> GetUser(int id)
         {
@@ -37,7 +35,6 @@ namespace firstback.user
             return Ok(user);
         }
 
-        // POST: api/User
         [HttpPost]
         public async Task<ActionResult> PostUser([FromBody] UserDTO userDTO)
         {
@@ -45,9 +42,8 @@ namespace firstback.user
             return CreatedAtAction(nameof(GetUser), new { id = id }, userDTO);
         }
 
-        // PUT: api/User/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id,[FromBody] UserDTO userDTO)
+        public async Task<IActionResult> PutUser(int id, [FromBody] UserDTO userDTO)
         {
             var existingUser = await _userService.GetUserByIdAsync(id);
             if (existingUser == null)
@@ -60,7 +56,6 @@ namespace firstback.user
             return NoContent();
         }
 
-        // DELETE: api/User/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {

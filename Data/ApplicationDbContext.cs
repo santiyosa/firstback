@@ -19,7 +19,7 @@ namespace BackendProject.Data
         public DbSet<Roles> Roles { get; set; }
         public DbSet<Tematica> Tematicas { get; set; }
         public DbSet<Categorias> Categorias { get; set; }
-         public DbSet<Oportunidad> Oportunidades { get; set; }
+        public DbSet<Oportunidad> Oportunidades { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Institucion> Instituciones { get; set; }
         public DbSet<Bootcamp> Bootcamps { get; set; }
@@ -40,7 +40,7 @@ namespace BackendProject.Data
             .HasKey(bt => new { bt.IdBootcamp, bt.IdTematica });
 
             modelBuilder.Entity<InstitucionBootcamp>()
-                .HasKey(bt => new { bt.Id_Institucion, bt.Id_Bootcamp }); 
+                .HasKey(bt => new { bt.Id_Institucion, bt.Id_Bootcamp });
         }
     }
 }

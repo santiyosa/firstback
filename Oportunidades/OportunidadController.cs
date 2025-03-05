@@ -17,16 +17,13 @@ namespace FIRSTBACK.Oportunidades
             _mapper = mapper;
         }
 
-        // GET: api/Oportunidad
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OportunidadesInstitucionesDTO>>> GetAll()
         {
-            /* return Ok(await _oportunidadService.GetAllAsync()); */
             var oportunidades = await _oportunidadService.GetAllAsync();
             return Ok(oportunidades);
         }
 
-        // GET: api/Oportunidad/id
         [HttpGet("{id}")]
         public async Task<ActionResult<OportunidadesInstitucionesDTO>> Get(int id)
         {
@@ -36,7 +33,6 @@ namespace FIRSTBACK.Oportunidades
             return Ok(product);
         }
 
-        // POST: api/
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] Oportunidad oportunidad)
         {
@@ -54,6 +50,7 @@ namespace FIRSTBACK.Oportunidades
             await _oportunidadService.UpdateAsync(id, oportunidad);
             return NoContent();
         }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
