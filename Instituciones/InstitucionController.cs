@@ -16,7 +16,6 @@ namespace FIRSTBACK.Instituciones
             _mapper = mapper;
         }
 
-        // GET: api/Institucion
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Institucion>>> GetAll()
         {
@@ -33,7 +32,6 @@ namespace FIRSTBACK.Instituciones
             return Ok(product);
         }
 
-        // POST: api/
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] InstitucionDTO institucionDTO)
         {

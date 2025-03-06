@@ -24,9 +24,9 @@ namespace firstback.user
 
         public async Task<UserRoleDTO?> GetUserByIdAsync(int id)
         {
-             var user = await _context.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Id == id); 
+            var user = await _context.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Id == id);
 
-             return _mapper.Map<UserRoleDTO>(user);
+            return _mapper.Map<UserRoleDTO>(user);
         }
 
         public async Task<int> CreateUserAsync(UserDTO userDTO)

@@ -7,6 +7,8 @@ using firstback.categorias;
 using firstback.user;
 using firstback.bootcamps;
 using FIRSTBACK.BootcampsTematicas;
+using FIRSTBACK.Oportunidades;
+using FIRSTBACK.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,9 @@ builder.Services.AddScoped<ITematicaService, TematicaService>();
 builder.Services.AddScoped<ICategoriasService, CategoriasService>();
 builder.Services.AddScoped<IInstitucionService, InstitucionService>();
 builder.Services.AddScoped<IBootcampService, BootcampService>();
+builder.Services.AddScoped<IInstitucionBootcampService, InstitucionBootcampService>();
+builder.Services.AddScoped<IBootcampTematicaService, BootcampTematicaService>();
+builder.Services.AddScoped<IOportunidadService, OportunidadService>();
 
 // Configurar AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
@@ -32,9 +37,9 @@ builder.Services.AddAutoMapper(typeof(TematicaProfile));
 builder.Services.AddControllers();
 builder.Services.AddAuthorization();
 
+
 // Configurar Swagger
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddScoped<IBootcampTematicaService, BootcampTematicaService>();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo

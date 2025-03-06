@@ -24,7 +24,6 @@ namespace firstback.bootcamps
         public async Task<BootcampInstitucionDTO?> GetBootcampByIdAsync(int id)
         {
             var bootcamp = await _context.Bootcamps.Include(b => b.Institucion).FirstOrDefaultAsync(u => u.Id == id); 
-
             return _mapper.Map<BootcampInstitucionDTO>(bootcamp);
         }
 
