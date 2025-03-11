@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using BackendProject.Data;
-using FIRSTBACK.InstitucionesBootcamps;
-using FIRSTBACK.Dtos;
+using firstback.InstitucionesBootcamps;
 using FIRSTBACK.Mappers;
 
 namespace FIRSTBACK.Services

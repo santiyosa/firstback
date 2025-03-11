@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using FIRSTBACK.InstitucionesBootcamps;
-using FIRSTBACK.Services;
-using FIRSTBACK.Dtos;
 
-namespace FIRSTBACK.Controllers
+namespace firstback.InstitucionesBootcamps
 {
     [Route("api/[controller]")]
     [ApiController]

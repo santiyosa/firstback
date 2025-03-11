@@ -1,7 +1,7 @@
 using AutoMapper;
-using FIRSTBACK.BootcampsTematicas;
+using firstback.BootcampsTematicas;
 
-namespace FIRSTBACK.Mappings
+namespace firstback.Mappings
 {
     public class BootcampTematicaProfile : Profile
     {

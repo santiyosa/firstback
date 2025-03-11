@@ -1,4 +1,4 @@
-namespace FIRSTBACK.BootcampsTematicas
+namespace firstback.BootcampsTematicas
 {
     public class BootcampTematicaDto
     {

@@ -2,7 +2,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using BackendProject.Data;
 
-namespace FIRSTBACK.BootcampsTematicas
+namespace firstback.BootcampsTematicas
 {
     public class BootcampTematicaService : IBootcampTematicaService
     {

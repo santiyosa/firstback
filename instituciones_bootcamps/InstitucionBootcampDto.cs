@@ -1,4 +1,4 @@
-namespace FIRSTBACK.Dtos
+namespace firstback.InstitucionesBootcamps
 {
     public class InstitucionBootcampDto
     {

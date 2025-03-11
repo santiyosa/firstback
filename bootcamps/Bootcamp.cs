@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using FIRSTBACK.Instituciones;
+using firstback.Instituciones;
 
 namespace firstback.bootcamps
 {

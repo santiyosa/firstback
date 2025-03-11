@@ -2,7 +2,7 @@ using BackendProject.Data;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 
-namespace FIRSTBACK.Instituciones
+namespace firstback.Instituciones
 {
     public class InstitucionService : IInstitucionService
     {

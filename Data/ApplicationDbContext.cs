@@ -1,18 +1,19 @@
-using FIRSTBACK.Instituciones;
-using FIRSTBACK.Tematicas;
-using FIRSTBACK.InstitucionesBootcamps;
 using Microsoft.EntityFrameworkCore;
+using firstback.Instituciones;
+using firstback.Tematicas;
+using firstback.InstitucionesBootcamps;
 using firstback.roles;
 using firstback.categorias;
 using firstback.user;
 using firstback.bootcamps;
-using FIRSTBACK.BootcampsTematicas;
-using FIRSTBACK.Oportunidades;
+using firstback.BootcampsTematicas;
+using firstback.Oportunidades;
 
 namespace BackendProject.Data
 {
     public class ApplicationDbContext : DbContext
     {
+<<<<<<< HEAD
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
 
@@ -41,6 +42,28 @@ namespace BackendProject.Data
 
             modelBuilder.Entity<InstitucionBootcamp>()
                 .HasKey(bt => new { bt.Id_Institucion, bt.Id_Bootcamp });
+=======
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :
+       base(options)
+        {
+        }
+        public DbSet<Oportunidad> Oportunidades { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserOpportunity> UsersOpportunities { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserOpportunity>()
+                .HasKey(uo => new { uo.userId, uo.opportunityId });
+
+          /*  modelBuilder.Entity<UserOpportunity>()
+                .HasOne(uo => uo.User)
+                .WithMany(uo => uo.userId)
+                .HasForeignKey(uo => uo.UserId)
+                .OnDelete(DeleteBehavior.Restrict); // Recomendado: Evita borrados en cascada
+ // Recomendado: Evita borrados en cascada*/
+
+>>>>>>> Users_Opportunities_Luis
         }
     }
 }

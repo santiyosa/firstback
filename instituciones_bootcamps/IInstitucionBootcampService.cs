@@ -1,7 +1,4 @@
-using FIRSTBACK.InstitucionesBootcamps;
-using FIRSTBACK.Dtos;
-
-namespace FIRSTBACK.Services
+namespace firstback.InstitucionesBootcamps
 {
     public interface IInstitucionBootcampService
     {

@@ -1,5 +1,4 @@
-using FIRSTBACK.InstitucionesBootcamps;
-using FIRSTBACK.Dtos;
+using firstback.InstitucionesBootcamps;
 
 namespace FIRSTBACK.Mappers
 {

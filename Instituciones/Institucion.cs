@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using firstback.bootcamps;
 
-namespace FIRSTBACK.Instituciones
+namespace firstback.Instituciones
 {
     public class Institucion
     {

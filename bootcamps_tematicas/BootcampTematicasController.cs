@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace FIRSTBACK.BootcampsTematicas
+namespace firstback.BootcampsTematicas
 {
     [Route("api/[controller]")]
     [ApiController]
