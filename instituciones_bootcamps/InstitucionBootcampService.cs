@@ -1,9 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using BackendProject.Data;
-using firstback.InstitucionesBootcamps;
-using FIRSTBACK.Mappers;
 
-namespace FIRSTBACK.Services
+namespace firstback.InstitucionesBootcamps
 {
     public class InstitucionBootcampService : IInstitucionBootcampService
     {
@@ -17,17 +15,17 @@ namespace FIRSTBACK.Services
         public async Task<IEnumerable<InstitucionBootcamp>> GetAllAsync()
         {
             return await _context.InstitucionBootcamps
-                .Include(ib => ib.Institucion)
-                .Include(ib => ib.Bootcamp)
-                .ToListAsync();
+            .Include(ib => ib.Institucion)
+            .Include(ib => ib.Bootcamp)
+            .ToListAsync();
         }
 
         public async Task<InstitucionBootcamp?> GetByIdAsync(int idInstitucion, int idBootcamp)
         {
             return await _context.InstitucionBootcamps
-                .Include(ib => ib.Institucion)
-                .Include(ib => ib.Bootcamp)
-                .FirstOrDefaultAsync(ib => ib.Id_Institucion == idInstitucion && ib.Id_Bootcamp == idBootcamp);
+            .Include(ib => ib.Institucion)
+            .Include(ib => ib.Bootcamp)
+            .FirstOrDefaultAsync(ib => ib.Id_Institucion == idInstitucion && ib.Id_Bootcamp == idBootcamp);
         }
 
         public async Task<InstitucionBootcamp> CreateAsync(InstitucionBootcampDto institucionBootcampDto)

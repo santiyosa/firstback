@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using FIRSTBACK.Instituciones;
+using firstback.Instituciones;
 
-namespace FIRSTBACK.Oportunidades
+namespace firstback.Oportunidades
 {
     public class OportunidadDTO
     {

@@ -1,8 +1,7 @@
 using AutoMapper;
-using firstback.Oportunidades;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FIRSTBACK.Oportunidades
+namespace firstback.Oportunidades
 {
     [Route("api/[controller]")]
     [ApiController]

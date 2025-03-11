@@ -1,5 +1,8 @@
-public class TematicaDTO
+namespace firstback.tematicas
 {
-    public string Nombre { get; set; } = null!;
-    public string? Descripcion { get; set; }
+    public class TematicaDTO
+    {
+        public string Nombre { get; set; } = null!;
+        public string? Descripcion { get; set; }
+    }
 }

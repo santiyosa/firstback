@@ -1,6 +1,4 @@
-using firstback.Oportunidades;
-
-namespace FIRSTBACK.Oportunidades
+namespace firstback.Oportunidades
 {
     public interface IOportunidadService
     {

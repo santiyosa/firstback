@@ -1,7 +1,6 @@
 using AutoMapper;
-using firstback.Oportunidades;
 
-namespace FIRSTBACK.Oportunidades
+namespace firstback.Oportunidades
 {
     public class OportunidadProfile : Profile
     {

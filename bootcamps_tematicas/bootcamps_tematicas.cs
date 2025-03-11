@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using firstback.bootcamps;
-using firstback.Tematicas;
+using firstback.tematicas;
 
 namespace firstback.BootcampsTematicas
 {

@@ -1,4 +1,4 @@
-namespace Users_Opportunities.DTO
+namespace firstback.UsersOpportunities
 {
     public class UsersOpportunityDTO
     {
@@ -6,4 +6,3 @@ namespace Users_Opportunities.DTO
         public int OpportunityId { get; set; }
     }
 }
-

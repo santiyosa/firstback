@@ -1,10 +1,9 @@
 
 using AutoMapper;
 using BackendProject.Data;
-using firstback.Oportunidades;
 using Microsoft.EntityFrameworkCore;
 
-namespace FIRSTBACK.Oportunidades
+namespace firstback.Oportunidades
 {
     public class OportunidadService : IOportunidadService
     {
