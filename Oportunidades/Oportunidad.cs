@@ -1,45 +1,46 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using FIRSTBACK.Instituciones;
+using firstback.categorias;
+using firstback.Instituciones;
 
-namespace FIRSTBACK.Oportunidades
+namespace firstback.Oportunidades
 {
         public class Oportunidad
         {
                 [Key]
-                public int id { get; set; }
+                public int Id { get; set; }
 
                 [StringLength(255)]
-                public string nombre { get; set; } = null!;
+                public string Nombre { get; set; } = null!;
 
-                public string? observaciones { get; set; }
+                public string? Observaciones { get; set; }
 
                 [StringLength(50)]
-                public string? tipo { get; set; }
+                public string? Tipo { get; set; }
 
-                public string? descripcion { get; set; }
+                public string? Descripcion { get; set; }
 
-                public string? requisitos { get; set; }
+                public string? Requisitos { get; set; }
 
-                public string? guia { get; set; }
+                public string? Guia { get; set; }
 
-                public string? datos_adicionales { get; set; }
+                public string? DatosAdicionales { get; set; }
 
-                public string? canales_atencion { get; set; }
+                public string? CanalesAtencion { get; set; }
 
                 [StringLength(255)]
-                public string? encargado { get; set; }
+                public string? Encargado { get; set; }
 
                 [StringLength(50)]
-                public string? modalidad { get; set; }
+                public string? Modalidad { get; set; }
 
-                public int? id_categoria { get; set; }
+                public int CategoriaId { get; set; }
 
-                [ForeignKey("id_institucion")]
-                [InverseProperty("oportunidades")]
-                public int? id_institucion { get; set; }
+                public int InstitucionId { get; set; }
 
-                [ForeignKey("id_institucion")]
-                public virtual Institucion? Institucion { get; set; }
+                public Categorias? Categoria { get; set; }
+
+                public Institucion? Institucion { get; set; }
+
+                public ICollection<firstback.UsersOpportunities.UsersOpportunities>? UsersOpportunities { get; set; }
         }
 }

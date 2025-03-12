@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using firstback.bootcamps;
-using FIRSTBACK.Tematicas;
+using firstback.tematicas;
 
-namespace FIRSTBACK.BootcampsTematicas
+namespace firstback.BootcampsTematicas
 {
     public class BootcampTematica
     {

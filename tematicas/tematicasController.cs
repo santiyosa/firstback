@@ -1,7 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FIRSTBACK.Tematicas
+namespace firstback.tematicas
 {
     [Route("api/[controller]")]
     [ApiController]

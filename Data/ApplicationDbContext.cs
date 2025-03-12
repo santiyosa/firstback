@@ -1,13 +1,14 @@
-using FIRSTBACK.Instituciones;
-using FIRSTBACK.Tematicas;
-using FIRSTBACK.InstitucionesBootcamps;
 using Microsoft.EntityFrameworkCore;
+using firstback.Instituciones;
+using firstback.InstitucionesBootcamps;
 using firstback.roles;
 using firstback.categorias;
 using firstback.user;
 using firstback.bootcamps;
-using FIRSTBACK.BootcampsTematicas;
-using FIRSTBACK.Oportunidades;
+using firstback.BootcampsTematicas;
+using firstback.Oportunidades;
+using firstback.tematicas;
+using firstback.UsersOpportunities;
 
 namespace BackendProject.Data
 {
@@ -25,6 +26,7 @@ namespace BackendProject.Data
         public DbSet<Bootcamp> Bootcamps { get; set; }
         public DbSet<BootcampTematica> BootcampTematicas { get; set; }
         public DbSet<InstitucionBootcamp> InstitucionBootcamps { get; internal set; }
+        public DbSet<UsersOpportunities> UsersOpportunities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,6 +43,25 @@ namespace BackendProject.Data
 
             modelBuilder.Entity<InstitucionBootcamp>()
                 .HasKey(bt => new { bt.Id_Institucion, bt.Id_Bootcamp });
+
+            modelBuilder.Entity<UsersOpportunities>()
+                .HasKey(uo => new { uo.Id_User, uo.Id_Opportunity });
+
+            modelBuilder.Entity<UsersOpportunities>()
+                .HasOne(uo => uo.user)
+                .WithMany(u => u.UsersOpportunities);
+
+            modelBuilder.Entity<UsersOpportunities>()
+                .HasOne(uo => uo.Oportunidad)
+                .WithMany(o => o.UsersOpportunities);
+
+            modelBuilder.Entity<Oportunidad>()
+                .HasOne(o => o.Categoria)
+                .WithMany();
+
+            modelBuilder.Entity<Oportunidad>()
+                .HasOne(o => o.Institucion)
+                .WithMany();
         }
     }
 }

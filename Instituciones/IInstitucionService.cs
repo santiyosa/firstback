@@ -1,4 +1,4 @@
-namespace FIRSTBACK.Instituciones
+namespace firstback.Instituciones
 {
     public interface IInstitucionService
     {
