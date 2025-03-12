@@ -12,49 +12,44 @@ namespace firstback.UsersOpportunities
             _context = context;
         }
 
-        public async Task<IEnumerable<UsersOpportunities>> GetAllAsync()
+        public async Task<IEnumerable<UsersOpportunitiesDTO>> GetAllAsync()
         {
             return await _context.UsersOpportunities
-            .Include(uo => uo.user)
-            .Include(uo => uo.Oportunidad)
+            .Select(uo => new UsersOpportunitiesDTO
+            {
+                IdUser = uo.Id_User,
+                IdOpportunity = uo.Id_Opportunity
+            })
             .ToListAsync();
         }
 
-        public async Task<UsersOpportunities?> GetByIdAsync(int userId, int opportunityId)
+        public async Task<UsersOpportunitiesDTO?> GetByIdAsync(int idUser, int idOpportunity)
         {
             return await _context.UsersOpportunities
-            .Include(uo => uo.user)
-            .Include(uo => uo.Oportunidad)
-            .FirstOrDefaultAsync(uo => uo.IdUser == userId && uo.IdOpportunity == opportunityId);
+            .Where(uo => uo.Id_User == idUser && uo.Id_Opportunity == idOpportunity)
+            .Select(uo => new UsersOpportunitiesDTO
+            {
+                IdUser = uo.Id_User,
+                IdOpportunity = uo.Id_Opportunity
+            })
+            .FirstOrDefaultAsync();
         }
 
-        public async Task<UsersOpportunities> CreateAsync(UsersOpportunityDTO usersOpportunityDTO)
+        public async Task<UsersOpportunitiesDTO> CreateAsync(UsersOpportunitiesDTO usersOpportunitiesDTO)
         {
-            var userOpportunities = UsersOpportunitiesMapper.MapToEntity(usersOpportunityDTO);
+            var userOpportunities = UsersOpportunitiesMapper.MapToEntity(usersOpportunitiesDTO);
 
             _context.UsersOpportunities.Add(userOpportunities);
             await _context.SaveChangesAsync();
 
-            return await GetByIdAsync(userOpportunities.IdUser, userOpportunities.IdOpportunity) ?? userOpportunities;
-        }
-
-        public async Task<bool> UpdateAsync(int userId, int opportunityId, UsersOpportunityDTO usersOpportunityDTO)
-        {
-            var userOpportunities = await GetByIdAsync(userId, opportunityId);
-            if (userOpportunities == null) return false;
-
-            userOpportunities.IdUser = usersOpportunityDTO.UserId;
-            userOpportunities.IdOpportunity = usersOpportunityDTO.OpportunityId;
-
-            _context.Entry(userOpportunities).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-
-            return true;
+            return usersOpportunitiesDTO;
         }
 
         public async Task<bool> DeleteAsync(int userId, int opportunityId)
         {
-            var userOpportunities = await GetByIdAsync(userId, opportunityId);
+            var userOpportunities = await _context.UsersOpportunities
+                .FirstOrDefaultAsync(uo => uo.Id_User == userId && uo.Id_Opportunity == opportunityId);
+
             if (userOpportunities == null) return false;
 
             _context.UsersOpportunities.Remove(userOpportunities);

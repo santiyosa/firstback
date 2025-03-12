@@ -15,34 +15,34 @@ namespace firstback.BootcampsTematicas
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<BootcampTematicaGetDto>> GetAllAsync()
+        public async Task<IEnumerable<BootcampTematicaDto>> GetAllAsync()
         {
             var entities = await _context.BootcampTematicas
                 .Include(bt => bt.Bootcamp)
                 .Include(bt => bt.Tematica)
                 .ToListAsync();
 
-            return _mapper.Map<IEnumerable<BootcampTematicaGetDto>>(entities);
+            return _mapper.Map<IEnumerable<BootcampTematicaDto>>(entities);
         }
 
-        public async Task<BootcampTematicaGetDto?> GetByIdAsync(int idBootcamp, int idTematica)
+        public async Task<BootcampTematicaDto?> GetByIdAsync(int idBootcamp, int idTematica)
         {
             var entity = await _context.BootcampTematicas
                 .Include(bt => bt.Bootcamp)
                 .Include(bt => bt.Tematica)
                 .FirstOrDefaultAsync(bt => bt.IdBootcamp == idBootcamp && bt.IdTematica == idTematica);
 
-            return entity == null ? null : _mapper.Map<BootcampTematicaGetDto>(entity);
+            return entity == null ? null : _mapper.Map<BootcampTematicaDto>(entity);
         }
 
-        public async Task<BootcampTematicaGetDto> CreateAsync(BootcampTematicaDto bootcampTematicaDto)
+        public async Task<BootcampTematicaDto> CreateAsync(BootcampTematicaDto bootcampTematicaDto)
         {
             var entity = _mapper.Map<BootcampTematica>(bootcampTematicaDto);
 
             _context.BootcampTematicas.Add(entity);
             await _context.SaveChangesAsync();
 
-            return await GetByIdAsync(entity.IdBootcamp, entity.IdTematica) ?? _mapper.Map<BootcampTematicaGetDto>(entity);
+            return await GetByIdAsync(entity.IdBootcamp, entity.IdTematica) ?? _mapper.Map<BootcampTematicaDto>(entity);
         }
 
         public async Task<bool> DeleteAsync(int idBootcamp, int idTematica)

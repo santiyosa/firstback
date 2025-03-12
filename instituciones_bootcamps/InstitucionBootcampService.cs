@@ -12,49 +12,48 @@ namespace firstback.InstitucionesBootcamps
             _context = context;
         }
 
-        public async Task<IEnumerable<InstitucionBootcamp>> GetAllAsync()
+        public async Task<IEnumerable<InstitucionBootcampDto>> GetAllAsync()
         {
             return await _context.InstitucionBootcamps
-            .Include(ib => ib.Institucion)
-            .Include(ib => ib.Bootcamp)
-            .ToListAsync();
+                .Select(ib => new InstitucionBootcampDto
+                {
+                    IdInstitucion = ib.Id_Institucion,
+                    IdBootcamp = ib.Id_Bootcamp
+                })
+                .ToListAsync();
         }
 
-        public async Task<InstitucionBootcamp?> GetByIdAsync(int idInstitucion, int idBootcamp)
+        public async Task<InstitucionBootcampDto?> GetByIdAsync(int idInstitucion, int idBootcamp)
         {
             return await _context.InstitucionBootcamps
-            .Include(ib => ib.Institucion)
-            .Include(ib => ib.Bootcamp)
-            .FirstOrDefaultAsync(ib => ib.Id_Institucion == idInstitucion && ib.Id_Bootcamp == idBootcamp);
+                .Where(ib => ib.Id_Institucion == idInstitucion && ib.Id_Bootcamp == idBootcamp)
+                .Select(ib => new InstitucionBootcampDto
+                {
+                    IdInstitucion = ib.Id_Institucion,
+                    IdBootcamp = ib.Id_Bootcamp
+                })
+                .FirstOrDefaultAsync();
         }
 
-        public async Task<InstitucionBootcamp> CreateAsync(InstitucionBootcampDto institucionBootcampDto)
+        public async Task<InstitucionBootcampDto> CreateAsync(InstitucionBootcampDto institucionBootcampDto)
         {
             var institucionBootcamp = InstitucionBootcampMapper.MapToEntity(institucionBootcampDto);
 
             _context.InstitucionBootcamps.Add(institucionBootcamp);
             await _context.SaveChangesAsync();
 
-            return await GetByIdAsync(institucionBootcamp.Id_Institucion, institucionBootcamp.Id_Bootcamp) ?? institucionBootcamp;
-        }
-
-        public async Task<bool> UpdateAsync(int idInstitucion, int idBootcamp, InstitucionBootcampDto institucionBootcampDto)
-        {
-            var institucionBootcamp = await GetByIdAsync(idInstitucion, idBootcamp);
-            if (institucionBootcamp == null) return false;
-
-            institucionBootcamp.Id_Institucion = institucionBootcampDto.IdInstitucion;
-            institucionBootcamp.Id_Bootcamp = institucionBootcampDto.IdBootcamp;
-
-            _context.Entry(institucionBootcamp).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-
-            return true;
+            return new InstitucionBootcampDto
+            {
+                IdInstitucion = institucionBootcamp.Id_Institucion,
+                IdBootcamp = institucionBootcamp.Id_Bootcamp
+            };
         }
 
         public async Task<bool> DeleteAsync(int idInstitucion, int idBootcamp)
         {
-            var institucionBootcamp = await GetByIdAsync(idInstitucion, idBootcamp);
+            var institucionBootcamp = await _context.InstitucionBootcamps
+                .FirstOrDefaultAsync(ib => ib.Id_Institucion == idInstitucion && ib.Id_Bootcamp == idBootcamp);
+
             if (institucionBootcamp == null) return false;
 
             _context.InstitucionBootcamps.Remove(institucionBootcamp);
@@ -62,5 +61,6 @@ namespace firstback.InstitucionesBootcamps
 
             return true;
         }
+
     }
 }

@@ -2,9 +2,9 @@ namespace firstback.BootcampsTematicas
 {
     public interface IBootcampTematicaService
     {
-        Task<IEnumerable<BootcampTematicaGetDto>> GetAllAsync();
-        Task<BootcampTematicaGetDto?> GetByIdAsync(int idBootcamp, int idTematica);
-        Task<BootcampTematicaGetDto> CreateAsync(BootcampTematicaDto bootcampTematicaDto);
+        Task<IEnumerable<BootcampTematicaDto>> GetAllAsync();
+        Task<BootcampTematicaDto?> GetByIdAsync(int idBootcamp, int idTematica);
+        Task<BootcampTematicaDto> CreateAsync(BootcampTematicaDto bootcampTematicaDto);
         Task<bool> DeleteAsync(int idBootcamp, int idTematica);
     }
 }

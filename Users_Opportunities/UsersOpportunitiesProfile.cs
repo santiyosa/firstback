@@ -2,12 +2,12 @@ namespace firstback.UsersOpportunities
 {
     public class UsersOpportunitiesMapper
     {
-        public static UsersOpportunities MapToEntity(UsersOpportunityDTO dto)
+        public static UsersOpportunities MapToEntity(UsersOpportunitiesDTO dto)
         {
             return new UsersOpportunities
             {
-                IdUser = dto.UserId,
-                IdOpportunity = dto.OpportunityId
+                Id_User = dto.IdUser,
+                Id_Opportunity = dto.IdOpportunity
             };
         }
     }

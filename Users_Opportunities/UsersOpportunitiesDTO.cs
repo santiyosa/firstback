@@ -1,8 +1,8 @@
 namespace firstback.UsersOpportunities
 {
-    public class UsersOpportunityDTO
+    public class UsersOpportunitiesDTO
     {
-        public int UserId { get; set; }
-        public int OpportunityId { get; set; }
+        public int IdUser { get; set; }
+        public int IdOpportunity { get; set; }
     }
 }

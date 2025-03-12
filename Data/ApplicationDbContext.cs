@@ -45,7 +45,23 @@ namespace BackendProject.Data
                 .HasKey(bt => new { bt.Id_Institucion, bt.Id_Bootcamp });
 
             modelBuilder.Entity<UsersOpportunities>()
-            .HasKey(uo => new { uo.IdUser, uo.IdOpportunity });
+                .HasKey(uo => new { uo.Id_User, uo.Id_Opportunity });
+
+            modelBuilder.Entity<UsersOpportunities>()
+                .HasOne(uo => uo.user)
+                .WithMany(u => u.UsersOpportunities);
+
+            modelBuilder.Entity<UsersOpportunities>()
+                .HasOne(uo => uo.Oportunidad)
+                .WithMany(o => o.UsersOpportunities);
+
+            modelBuilder.Entity<Oportunidad>()
+                .HasOne(o => o.Categoria)
+                .WithMany();
+
+            modelBuilder.Entity<Oportunidad>()
+                .HasOne(o => o.Institucion)
+                .WithMany();
         }
     }
 }

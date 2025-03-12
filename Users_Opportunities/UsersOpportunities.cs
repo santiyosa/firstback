@@ -7,11 +7,11 @@ namespace firstback.UsersOpportunities
     public class UsersOpportunities
     {
         [ForeignKey("User")]
-        public int IdUser { get; set; }
+        public int Id_User { get; set; }
         [ForeignKey("Oportunidad")]
-        public int IdOpportunity { get; set; }
+        public int Id_Opportunity { get; set; }
 
-        public User user { get; set; } = null!;
-        public Oportunidad Oportunidad { get; set; } = null!;
+        public User? user { get; set; }
+        public Oportunidad? Oportunidad { get; set; }
     }
 }

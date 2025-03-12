@@ -29,18 +29,13 @@ namespace firstback.InstitucionesBootcamps
         }
 
         [HttpPost]
-        public async Task<ActionResult<InstitucionBootcamp>> Create([FromBody] InstitucionBootcampDto institucionBootcampDto)
+        public async Task<ActionResult<InstitucionBootcampDto>> Create([FromBody] InstitucionBootcampDto institucionBootcampDto)
         {
-            var created = await _service.CreateAsync(institucionBootcampDto);
-            return CreatedAtAction(nameof(GetById), new { idInstitucion = created.Id_Institucion, idBootcamp = created.Id_Bootcamp }, created);
-        }
+            if (institucionBootcampDto == null)
+                return BadRequest("Los datos no pueden ser nulos.");
 
-        [HttpPut("{idInstitucion}/{idBootcamp}")]
-        public async Task<IActionResult> Update(int idInstitucion, int idBootcamp, [FromBody] InstitucionBootcampDto institucionBootcampDto)
-        {
-            var updated = await _service.UpdateAsync(idInstitucion, idBootcamp, institucionBootcampDto);
-            if (!updated) return NotFound();
-            return NoContent();
+            var result = await _service.CreateAsync(institucionBootcampDto);
+            return CreatedAtAction(nameof(GetById), new { idInstitucion = result.IdInstitucion, idBootcamp = result.IdBootcamp }, result);
         }
 
         [HttpDelete("{idInstitucion}/{idBootcamp}")]

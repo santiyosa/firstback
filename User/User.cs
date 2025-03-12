@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using firstback.roles;
 
 namespace firstback.user
@@ -14,5 +15,8 @@ namespace firstback.user
         public string? Password { get; set; }
         public int RoleId { get; set; }
         public Roles? Role { get; set; }
+
+        [JsonIgnore]
+         public ICollection<firstback.UsersOpportunities.UsersOpportunities>? UsersOpportunities { get; set; }
     }
 }

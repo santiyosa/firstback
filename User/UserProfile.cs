@@ -8,6 +8,7 @@ namespace firstback.user
         {
             CreateMap<User, UserDTO>();
             CreateMap<UserDTO, User>();
+            CreateMap<UserDTO, UserRoleDTO>();
 
             CreateMap<User, UserRoleDTO>().ForMember(dest => dest.rol, opt => opt.MapFrom(src => src.Role != null ? src.Role.rol : null));
         }

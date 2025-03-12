@@ -1,23 +1,36 @@
-using System.ComponentModel.DataAnnotations.Schema;
-using firstback.Instituciones;
+using System.ComponentModel.DataAnnotations;
 
 namespace firstback.Oportunidades
 {
     public class OportunidadDTO
     {
-        public string nombre { get; set; } = null!;
+        [StringLength(255)]
+                public string Nombre { get; set; } = null!;
 
-        public string descripcion { get; set; } = null!;
+                public string? Observaciones { get; set; }
 
-        public string datos_adicionales { get; set; } = null!;
+                [StringLength(50)]
+                public string? Tipo { get; set; }
 
-        public string canales_atencion { get; set; } = null!;
+                public string? Descripcion { get; set; }
 
-        [ForeignKey("id_institucion")]
-        [InverseProperty("oportunidades")]
-        public int? id_institucion { get; set; }
+                public string? Requisitos { get; set; }
 
-        [ForeignKey("id_institucion")]
-        public virtual Institucion? Institucion { get; set; }
+                public string? Guia { get; set; }
+
+                public string? DatosAdicionales { get; set; }
+
+                public string? CanalesAtencion { get; set; }
+
+                [StringLength(255)]
+                public string? Encargado { get; set; }
+
+                [StringLength(50)]
+                public string? Modalidad { get; set; }
+
+                public int CategoriaId { get; set; }
+
+                public int InstitucionId { get; set; }
     }
+
 }

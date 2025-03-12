@@ -17,36 +17,51 @@ namespace firstback.Oportunidades
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OportunidadesInstitucionesDTO>>> GetAll()
+        public async Task<ActionResult<IEnumerable<OportunidadDTO>>> GetAll()
         {
             var oportunidades = await _oportunidadService.GetAllAsync();
             return Ok(oportunidades);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<OportunidadesInstitucionesDTO>> Get(int id)
+        public async Task<ActionResult<Oportunidad>> Get(int id)
         {
             var product = await _oportunidadService.GetByIdAsync(id);
             if (product == null)
+            {
                 return NotFound();
+            }
+
             return Ok(product);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create([FromBody] Oportunidad oportunidad)
+        public async Task<ActionResult> Create([FromBody] OportunidadDTO oportunidadDTO)
         {
-            await _oportunidadService.CreateAsync(oportunidad);
-            return CreatedAtAction(nameof(Get), new { id = oportunidad.id }, oportunidad);
+            int id = await _oportunidadService.CreateAsync(oportunidadDTO);
+
+            // Recupera la oportunidad creada
+            var nuevaOportunidad = await _oportunidadService.GetByIdAsync(id);
+
+            if (nuevaOportunidad == null)
+            {
+                return NotFound();
+            }
+
+            return CreatedAtAction(nameof(Get), new { id = nuevaOportunidad.Id }, nuevaOportunidad);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, [FromBody] Oportunidad oportunidad)
+        public async Task<ActionResult> Update(int id, [FromBody] OportunidadDTO oportunidadDTO)
         {
             var existingOportunidad = await _oportunidadService.GetByIdAsync(id);
             if (existingOportunidad == null)
+            {
                 return NotFound();
-            oportunidad.id = id;
-            await _oportunidadService.UpdateAsync(id, oportunidad);
+            }
+
+            _mapper.Map(oportunidadDTO, existingOportunidad);
+            await _oportunidadService.UpdateAsync(id, oportunidadDTO);
             return NoContent();
         }
 
