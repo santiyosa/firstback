@@ -34,6 +34,7 @@ builder.Services.AddScoped<IInstitucionBootcampService, InstitucionBootcampServi
 builder.Services.AddScoped<IBootcampTematicaService, BootcampTematicaService>();
 builder.Services.AddScoped<IOportunidadService, OportunidadService>();
 builder.Services.AddScoped<IUsersOpportunitiesServices, UsersOpportunitiesServices>();
+builder.Services.AddScoped<IInstitucionService, InstitucionService>();
 
 // Configurar AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
@@ -45,6 +46,7 @@ builder.Services.AddAuthorization();
 
 
 // Configurar Swagger
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {

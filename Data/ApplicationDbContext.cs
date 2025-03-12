@@ -1,3 +1,4 @@
+using Institutions_Opportunity.Models;
 using Microsoft.EntityFrameworkCore;
 using firstback.Instituciones;
 using firstback.InstitucionesBootcamps;
@@ -27,6 +28,7 @@ namespace BackendProject.Data
         public DbSet<BootcampTematica> BootcampTematicas { get; set; }
         public DbSet<InstitucionBootcamp> InstitucionBootcamps { get; internal set; }
         public DbSet<UsersOpportunities> UsersOpportunities { get; set; }
+        public DbSet<InstitutionOpportunity> InstitutionOpportunities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
