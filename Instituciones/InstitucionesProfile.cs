@@ -1,6 +1,6 @@
 using AutoMapper;
 
-namespace FIRSTBACK.Instituciones
+namespace firstback.Instituciones
 {
     public class InstitucionProfile : Profile
     {

@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using firstback.bootcamps;
-using FIRSTBACK.Instituciones;
+using firstback.Instituciones;
 
-namespace FIRSTBACK.InstitucionesBootcamps
+namespace firstback.InstitucionesBootcamps
 {
     public class InstitucionBootcamp
     {

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace FIRSTBACK.Instituciones
+namespace firstback.Instituciones
 {
     public class InstitucionDTO
     {

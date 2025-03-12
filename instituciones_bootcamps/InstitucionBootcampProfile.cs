@@ -1,7 +1,4 @@
-using FIRSTBACK.InstitucionesBootcamps;
-using FIRSTBACK.Dtos;
-
-namespace FIRSTBACK.Mappers
+namespace firstback.InstitucionesBootcamps
 {
     public static class InstitucionBootcampMapper
     {

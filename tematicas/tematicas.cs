@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace FIRSTBACK.Tematicas
+namespace firstback.tematicas
 {
     public class Tematica
     {

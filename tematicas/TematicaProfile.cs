@@ -1,10 +1,12 @@
 using AutoMapper;
-using FIRSTBACK.Tematicas;
 
-public class TematicaProfile : Profile
+namespace firstback.tematicas
 {
-    public TematicaProfile()
+    public class TematicaProfile : Profile
     {
-        CreateMap<Tematica, TematicaDTO>().ReverseMap();
+        public TematicaProfile()
+        {
+            CreateMap<Tematica, TematicaDTO>().ReverseMap();
+        }
     }
 }

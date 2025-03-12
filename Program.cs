@@ -1,14 +1,16 @@
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using FIRSTBACK.Instituciones;
 using BackendProject.Data;
 using firstback.roles;
 using firstback.categorias;
 using firstback.user;
 using firstback.bootcamps;
-using FIRSTBACK.BootcampsTematicas;
-using FIRSTBACK.Oportunidades;
-using FIRSTBACK.Services;
+using firstback.tematicas;
+using firstback.Instituciones;
+using firstback.InstitucionesBootcamps;
+using firstback.BootcampsTematicas;
+using firstback.Oportunidades;
+using firstback.UsersOpportunities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +18,10 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Configurar DbContext con PostgreSQL
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString)
+    .LogTo(Console.WriteLine, LogLevel.Information)
+    .EnableSensitiveDataLogging()
+);
 
 // Registrar servicios
 builder.Services.AddScoped<IUserService, UserService>(); 
@@ -28,6 +33,7 @@ builder.Services.AddScoped<IBootcampService, BootcampService>();
 builder.Services.AddScoped<IInstitucionBootcampService, InstitucionBootcampService>();
 builder.Services.AddScoped<IBootcampTematicaService, BootcampTematicaService>();
 builder.Services.AddScoped<IOportunidadService, OportunidadService>();
+builder.Services.AddScoped<IUsersOpportunitiesServices, UsersOpportunitiesServices>();
 
 // Configurar AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));

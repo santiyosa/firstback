@@ -1,13 +1,11 @@
-using firstback.Oportunidades;
-
-namespace FIRSTBACK.Oportunidades
+namespace firstback.Oportunidades
 {
     public interface IOportunidadService
     {
-        Task<IEnumerable<OportunidadesInstitucionesDTO>> GetAllAsync();
-        Task<OportunidadesInstitucionesDTO?> GetByIdAsync(int id);
-        Task CreateAsync(Oportunidad oportunidad);
-        Task UpdateAsync(int id, Oportunidad oportunidad);
+        Task<IEnumerable<Oportunidad>> GetAllAsync();
+        Task<Oportunidad?> GetByIdAsync(int id);
+        Task<int> CreateAsync(OportunidadDTO oportunidadDTO);
+        Task UpdateAsync(int id, OportunidadDTO oportunidad);
         Task DeleteAsync(int id);
     }
 }

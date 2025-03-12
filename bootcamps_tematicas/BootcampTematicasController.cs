@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace FIRSTBACK.BootcampsTematicas
+namespace firstback.BootcampsTematicas
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -14,14 +14,14 @@ namespace FIRSTBACK.BootcampsTematicas
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BootcampTematicaGetDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<BootcampTematicaDto>>> GetAll()
         {
             var bootcampTematicas = await _service.GetAllAsync();
             return Ok(bootcampTematicas);
         }
 
         [HttpGet("{idBootcamp}/{idTematica}")]
-        public async Task<ActionResult<BootcampTematicaGetDto>> GetById(int idBootcamp, int idTematica)
+        public async Task<ActionResult<BootcampTematicaDto>> GetById(int idBootcamp, int idTematica)
         {
             var bootcampTematica = await _service.GetByIdAsync(idBootcamp, idTematica);
             if (bootcampTematica == null) return NotFound("No se encontró la relación Bootcamp-Tematica.");
@@ -29,7 +29,7 @@ namespace FIRSTBACK.BootcampsTematicas
         }
 
         [HttpPost]
-        public async Task<ActionResult<BootcampTematicaGetDto>> Create([FromBody] BootcampTematicaDto bootcampTematicaDto)
+        public async Task<ActionResult<BootcampTematicaDto>> Create([FromBody] BootcampTematicaDto bootcampTematicaDto)
         {
             var bootcampTematica = await _service.CreateAsync(bootcampTematicaDto);
             return CreatedAtAction(nameof(GetById), new { idBootcamp = bootcampTematica.IdBootcamp, idTematica = bootcampTematica.IdTematica }, bootcampTematica);
@@ -43,5 +43,4 @@ namespace FIRSTBACK.BootcampsTematicas
             return NoContent();
         }
     }
-
 }

@@ -8,6 +8,8 @@ namespace firstback.bootcamps
         {
             CreateMap<Bootcamp, BootcampDTO>();
             CreateMap<BootcampDTO, Bootcamp>();
+            CreateMap<BootcampDTO, BootcampInstitucionDTO>();
+            CreateMap<BootcampInstitucionDTO, BootcampDTO>();
 
             CreateMap<Bootcamp, BootcampInstitucionDTO>()
                 .ForMember(dest => dest.NombreInstitucion, opt => opt.MapFrom(src => src.Institucion != null ? src.Institucion.id : 0))

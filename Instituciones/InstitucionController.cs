@@ -1,7 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FIRSTBACK.Instituciones
+namespace firstback.Instituciones
 {
     [Route("api/[controller]")]
     [ApiController]
