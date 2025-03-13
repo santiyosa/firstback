@@ -1,10 +1,12 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace firstback.tematicas
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TematicaController : ControllerBase
     {
         private readonly ITematicaService _tematicaService;
