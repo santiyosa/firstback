@@ -11,6 +11,7 @@ using firstback.InstitucionesBootcamps;
 using firstback.BootcampsTematicas;
 using firstback.Oportunidades;
 using firstback.UsersOpportunities;
+using firstback.InstitutionsOpportunity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,8 @@ builder.Services.AddScoped<IInstitucionBootcampService, InstitucionBootcampServi
 builder.Services.AddScoped<IBootcampTematicaService, BootcampTematicaService>();
 builder.Services.AddScoped<IOportunidadService, OportunidadService>();
 builder.Services.AddScoped<IUsersOpportunitiesServices, UsersOpportunitiesServices>();
+builder.Services.AddScoped<IInstitucionService, InstitucionService>();
+builder.Services.AddScoped<IInstitutionsOpportunityService, InstitutionsOpportunityService>();
 
 // Configurar AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
@@ -45,6 +48,7 @@ builder.Services.AddAuthorization();
 
 
 // Configurar Swagger
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {

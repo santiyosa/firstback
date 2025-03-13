@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using firstback.categorias;
 using firstback.Instituciones;
+using firstback.InstitutionsOpportunity;
 
 namespace firstback.Oportunidades
 {
@@ -42,5 +44,8 @@ namespace firstback.Oportunidades
                 public Institucion? Institucion { get; set; }
 
                 public ICollection<firstback.UsersOpportunities.UsersOpportunities>? UsersOpportunities { get; set; }
+
+                [JsonIgnore]
+                public ICollection<InstitutionOpportunity>? InstitutionOpportunities { get; set; }
         }
 }

@@ -9,6 +9,7 @@ using firstback.BootcampsTematicas;
 using firstback.Oportunidades;
 using firstback.tematicas;
 using firstback.UsersOpportunities;
+using firstback.InstitutionsOpportunity;
 
 namespace BackendProject.Data
 {
@@ -27,6 +28,7 @@ namespace BackendProject.Data
         public DbSet<BootcampTematica> BootcampTematicas { get; set; }
         public DbSet<InstitucionBootcamp> InstitucionBootcamps { get; internal set; }
         public DbSet<UsersOpportunities> UsersOpportunities { get; set; }
+        public DbSet<InstitutionOpportunity> InstitutionOpportunities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -62,6 +64,17 @@ namespace BackendProject.Data
             modelBuilder.Entity<Oportunidad>()
                 .HasOne(o => o.Institucion)
                 .WithMany();
+
+            modelBuilder.Entity<InstitutionOpportunity>()
+                .HasKey(io => new { io.Id_Institution, io.Id_Opportunity });
+
+            modelBuilder.Entity<InstitutionOpportunity>()
+                .HasOne(io => io.Institucion)
+                .WithMany(i => i.institucion_oportunidades);
+
+            modelBuilder.Entity<InstitutionOpportunity>()
+                .HasOne(io => io.Oportunidad)
+                .WithMany(o => o.InstitutionOpportunities);
         }
     }
 }
