@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using firstback.bootcamps;
+using firstback.InstitutionsOpportunity;
 
 namespace firstback.Instituciones
 {
@@ -22,5 +23,8 @@ namespace firstback.Instituciones
 
         [JsonIgnore]
         public ICollection<Bootcamp>? bootcamps { get; set; }
+
+        [JsonIgnore]
+        public ICollection<InstitutionOpportunity>? institucion_oportunidades { get; set; }
     }
 }
