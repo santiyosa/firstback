@@ -1,4 +1,3 @@
-using Institutions_Opportunity.Models;
 using Microsoft.EntityFrameworkCore;
 using firstback.Instituciones;
 using firstback.InstitucionesBootcamps;
@@ -10,6 +9,7 @@ using firstback.BootcampsTematicas;
 using firstback.Oportunidades;
 using firstback.tematicas;
 using firstback.UsersOpportunities;
+using firstback.InstitutionsOpportunity;
 
 namespace BackendProject.Data
 {
@@ -64,6 +64,17 @@ namespace BackendProject.Data
             modelBuilder.Entity<Oportunidad>()
                 .HasOne(o => o.Institucion)
                 .WithMany();
+
+            modelBuilder.Entity<InstitutionOpportunity>()
+                .HasKey(io => new { io.Id_Institution, io.Id_Opportunity });
+
+            modelBuilder.Entity<InstitutionOpportunity>()
+                .HasOne(io => io.Institucion)
+                .WithMany(i => i.institucion_oportunidades);
+
+            modelBuilder.Entity<InstitutionOpportunity>()
+                .HasOne(io => io.Oportunidad)
+                .WithMany(o => o.InstitutionOpportunities);
         }
     }
 }
