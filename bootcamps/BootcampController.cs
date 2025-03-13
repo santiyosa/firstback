@@ -1,10 +1,12 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace firstback.bootcamps
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BootcampController : ControllerBase
     {
         private readonly IBootcampService _bootcampService;

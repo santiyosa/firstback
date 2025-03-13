@@ -1,10 +1,12 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace firstback.Oportunidades
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OportunidadController : ControllerBase
     {
         private readonly IOportunidadService _oportunidadService;
