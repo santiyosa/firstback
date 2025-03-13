@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace firstback.BootcampsTematicas
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BootcampTematicasController : ControllerBase
     {
         private readonly IBootcampTematicaService _service;

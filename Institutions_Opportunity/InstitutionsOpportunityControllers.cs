@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace firstback.InstitutionsOpportunity
 {
     [ApiController]
     [Route("Api/[Controller]")]
-
+    [Authorize]
     public class InstitutionsOpportunityController : ControllerBase
     {
         private readonly IInstitutionsOpportunityService _service;

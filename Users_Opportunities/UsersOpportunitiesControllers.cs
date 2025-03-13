@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace firstback.UsersOpportunities
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class UsersOpportunitiesController : ControllerBase
     {
         private readonly IUsersOpportunitiesServices _service;

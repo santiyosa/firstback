@@ -1,10 +1,12 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace firstback.Instituciones
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class InstitucionController : ControllerBase
     {
         private readonly IInstitucionService _institucionService;

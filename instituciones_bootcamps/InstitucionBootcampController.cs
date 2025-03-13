@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace firstback.InstitucionesBootcamps
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class InstitucionBootcampController : ControllerBase
     {
         private readonly IInstitucionBootcampService _service;
