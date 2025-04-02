@@ -1,6 +1,8 @@
 using BackendProject.Data;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace firstback.user
 {
@@ -32,6 +34,9 @@ namespace firstback.user
         public async Task<int> CreateUserAsync(UserDTO userDTO)
         {
             User user = _mapper.Map<User>(userDTO);
+
+             user.Password = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(userDTO.Password ?? string.Empty)));
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             return user.Id;

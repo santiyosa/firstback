@@ -22,7 +22,7 @@ namespace firstback.user
         }
 
         [HttpPost("register")]
-        public IActionResult Register([FromBody] UserDTO userDTO)
+        public IActionResult Register([FromBody] UserRegisterDTO userDTO)
         {
             var existingUser = _context.Users.FirstOrDefault(u => u.Email == userDTO.Email);
             if (existingUser != null) // Usuario ya existe
@@ -43,7 +43,7 @@ namespace firstback.user
                 Password = hashedPassword,
                 FirstName = userDTO.FirstName,
                 LastName = userDTO.LastName,
-                RoleId = userDTO.RoleId
+                RoleId = 2
             };
 
             _context.Users.Add(newUser);
