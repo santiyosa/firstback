@@ -16,7 +16,7 @@ namespace firstback.JWT
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, user.Email ?? string.Empty),
-                new Claim(ClaimTypes.Role, user.Role?.ToString() ?? string.Empty)
+                new Claim(ClaimTypes.Role, user.RoleId.ToString() ?? string.Empty),
             };
             var jwtKey = _config["Jwt:Key"] ?? throw new ArgumentNullException("Jwt:Key", "JWT key cannot be null");
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
