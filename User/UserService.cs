@@ -49,6 +49,9 @@ namespace firstback.user
             if (user != null)
             {
                 _mapper.Map(userDTO, user);
+
+                user.Password = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(userDTO.Password ?? string.Empty)));
+
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
             }
