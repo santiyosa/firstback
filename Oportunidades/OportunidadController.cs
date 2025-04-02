@@ -19,6 +19,7 @@ namespace firstback.Oportunidades
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<OportunidadDTO>>> GetAll()
         {
             var oportunidades = await _oportunidadService.GetAllAsync();
@@ -26,6 +27,7 @@ namespace firstback.Oportunidades
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<Oportunidad>> Get(int id)
         {
             var product = await _oportunidadService.GetByIdAsync(id);
