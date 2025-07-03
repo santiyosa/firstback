@@ -130,6 +130,15 @@ builder.Services.AddCors(options =>
 
 
 var app = builder.Build();
+
+// Configuración dinámica del puerto para Render y otros entornos cloud
+var port = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrEmpty(port) && int.TryParse(port, out var portNumber))
+{
+    app.Urls.Clear();
+    app.Urls.Add($"http://*:{portNumber}");
+}
+
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -153,4 +162,5 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/api/images"
 });
 app.UseCors("AllowAll");
+
 app.Run();
