@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using BackendProject.imagenes;
 
 namespace BackendProject.Controllers
 {
@@ -6,7 +7,14 @@ namespace BackendProject.Controllers
     [ApiController]
     public class ImagesController : ControllerBase
     {
-        private readonly string _uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "uploads");
+
+        private readonly AzureBlobStorageService _blobService;
+
+        public ImagesController(AzureBlobStorageService blobService)
+        {
+            _blobService = blobService;
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> UploadImage([FromForm] ImageUploadDto model)
@@ -14,19 +22,16 @@ namespace BackendProject.Controllers
             if (model.File == null || model.File.Length == 0)
                 return BadRequest("No se subió ningún archivo.");
 
-            var id = Guid.NewGuid(); // NUEVO ID
+            var id = Guid.NewGuid();
             var sanitizedFileName = SanitizeFileName(Path.GetFileName(model.File.FileName));
             var fileName = $"{id}_{sanitizedFileName}";
-            var path = Path.Combine(_uploadsFolder, fileName);
-
-            Directory.CreateDirectory(_uploadsFolder); // Crea la carpeta si no existe
-
-            using (var stream = new FileStream(path, FileMode.Create))
+            // Cambia el nombre del archivo antes de subirlo
+            var formFile = new FormFile(model.File.OpenReadStream(), 0, model.File.Length, string.Empty, fileName)
             {
-                await model.File.CopyToAsync(stream);
-            }
-
-            var url = $"{Request.Scheme}://{Request.Host}/api/images/{fileName}";
+                Headers = model.File.Headers,
+                ContentType = model.File.ContentType
+            };
+            var url = await _blobService.UploadFileAsync(formFile);
 
             var response = new ImageUploadResponseDto
             {
@@ -41,48 +46,48 @@ namespace BackendProject.Controllers
         }
 
 
+
         [HttpGet]
-        public IActionResult GetAllImages()
+        public async Task<IActionResult> GetAllImages()
         {
-            if (!Directory.Exists(_uploadsFolder))
-                return NotFound("El directorio de imágenes no existe.");
-
-            var files = Directory.GetFiles(_uploadsFolder)
-                                 .Select(filePath => new ImageInfoDto
-                                 {
-                                     FileName = Path.GetFileName(filePath),
-                                     Url = $"{Request.Scheme}://{Request.Host}/api/images/{Path.GetFileName(filePath)}"
-                                 })
-                                 .OrderBy(i => i.FileName)
-                                 .ToList();
-
+            var blobs = await _blobService.GetAllBlobs();
+            var files = new List<ImageInfoDto>();
+            foreach (var blob in blobs)
+            {
+                var url = await _blobService.GetBlobUrlAsync(blob);
+                files.Add(new ImageInfoDto
+                {
+                    FileName = blob,
+                    Url = url
+                });
+            }
+            files = files.OrderBy(i => i.FileName).ToList();
             return Ok(files);
         }
 
+
         [HttpGet("{fileName}")]
-        public IActionResult GetImage(string fileName)
+        public async Task<IActionResult> GetImage(string fileName)
         {
-            var path = Path.Combine(_uploadsFolder, fileName);
-            if (!System.IO.File.Exists(path))
+            var stream = await _blobService.GetFileAsync(fileName);
+            if (stream == null)
                 return NotFound("La imagen no fue encontrada.");
 
             var mime = GetMimeType(fileName);
-            var bytes = System.IO.File.ReadAllBytes(path);
-            return File(bytes, mime);
+            return File(stream, mime);
         }
 
+
         [HttpDelete("{fileName}")]
-        public IActionResult DeleteImage(string fileName)
+        public async Task<IActionResult> DeleteImage(string fileName)
         {
-            var path = Path.Combine(_uploadsFolder, fileName);
-            if (!System.IO.File.Exists(path))
+            var deleted = await _blobService.DeleteFileAsync(fileName);
+            if (!deleted)
                 return NotFound(new DeleteImageResponseDto
                 {
                     FileName = fileName,
                     Message = "La imagen no fue encontrada."
                 });
-
-            System.IO.File.Delete(path);
 
             return Ok(new DeleteImageResponseDto
             {
@@ -90,6 +95,7 @@ namespace BackendProject.Controllers
                 Message = "Imagen eliminada correctamente."
             });
         }
+
 
         private string GetMimeType(string fileName)
         {
